@@ -4,20 +4,21 @@ go 1.18
 
 require (
 	github.com/Gurpreet-Bacancy/bcl v0.0.0-00010101000000-000000000000
-	github.com/gofiber/fiber v1.14.6
 	github.com/gofiber/fiber/v2 v2.39.0
+	github.com/gofiber/jwt/v3 v3.3.3
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/joho/godotenv v1.4.0
+	github.com/shamaton/msgpack v1.2.1
 )
 
 replace github.com/Gurpreet-Bacancy/bcl => ../bcl
 
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
-	github.com/gofiber/utils v0.0.10 // indirect
-	github.com/gorilla/schema v1.1.0 // indirect
+	github.com/golang-jwt/jwt/v4 v4.4.2 // indirect
 	github.com/jinzhu/gorm v1.9.16 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
-	github.com/jinzhu/now v1.1.4 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
 	github.com/lib/pq v1.1.1 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect

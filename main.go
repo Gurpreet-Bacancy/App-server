@@ -1,12 +1,14 @@
 package main
 
 import (
+	"crypto/rand"
 	"crypto/rsa"
 	"flag"
 	"log"
 	"os"
 
 	"App-server/controller"
+	"App-server/routes"
 
 	"github.com/Gurpreet-Bacancy/bcl/dbconn"
 	"github.com/Gurpreet-Bacancy/bcl/postgres"
@@ -15,14 +17,21 @@ import (
 )
 
 var (
+	privateKey *rsa.PrivateKey
 	conn       *dbconn.Postgres
 	models     *postgres.Models
 	app        *controller.Application
-	privateKey *rsa.PrivateKey
 )
 
 func init() {
 	var err error
+
+	rng := rand.Reader
+
+	privateKey, err = rsa.GenerateKey(rng, 2048)
+	if err != nil {
+		log.Fatalf("rsa.GenerateKey: %v", err)
+	}
 
 	// Load Env file
 	err = godotenv.Load()
@@ -40,8 +49,6 @@ func init() {
 	models = postgres.NewModels(conn)
 }
 
-// TODO seeding and migration Via GONG
-// TODO Use websockets
 func main() {
 	fibApp := fiber.New()
 
@@ -60,6 +67,7 @@ func main() {
 
 	if *startserver {
 		// initialize routes
+		routes.InitializeRoutes(app, fibApp, privateKey)
 
 		// starting server
 		fibApp.Listen(":3000")
