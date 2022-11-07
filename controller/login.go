@@ -1,12 +1,14 @@
 package controller
 
 import (
+	"errors"
 	"time"
 
 	"App-server/helper"
 
 	"github.com/Gurpreet-Bacancy/bcl/types"
 	"github.com/gofiber/fiber/v2"
+	"github.com/jinzhu/gorm"
 
 	"github.com/golang-jwt/jwt"
 
@@ -25,6 +27,7 @@ import (
 // @Router / [post]
 func (app *Application) Login(c *fiber.Ctx) error {
 	// POST request
+	// TODO Password checking
 	var (
 		userLogin     types.UserLoginRequest
 		loginResponse types.UserLoginResponse
@@ -44,6 +47,9 @@ func (app *Application) Login(c *fiber.Ctx) error {
 	// Check if user exist or not From DB
 	user, err := app.models.User.GetUserByEmail(userLogin.Email)
 	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return helper.HandleError(c, 400, err, "invalid credentials")
+		}
 		return helper.HandleError(c, 500, err, "Something went wrong while getting user details")
 	}
 

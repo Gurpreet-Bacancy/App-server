@@ -47,6 +47,8 @@ func init() {
 
 	// load Models
 	models = postgres.NewModels(conn)
+	app = controller.New(conn, models, privateKey)
+
 }
 
 // @title Fiber Swagger API
