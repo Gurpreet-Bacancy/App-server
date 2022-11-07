@@ -73,3 +73,40 @@ func (app *Application) AddUserLocation(c *fiber.Ctx) error {
 
 	return c.SendString("User location added sucessfully.")
 }
+
+func (app *Application) UpdateUserLocation(c *fiber.Ctx) error {
+	// PUT request
+	var (
+		coordinate model.Coordinates
+		err        error
+	)
+
+	msgpckHeader := c.Get("content-type")
+	if msgpckHeader != "application/octet-stream" {
+		return helper.HandleError(c, 400, err, "Invalid messagepack request, Please provide messagepack request")
+	}
+
+	userClaims := c.Locals("user").(*jwt.Token)
+	claims := userClaims.Claims.(jwt.MapClaims)
+	userID := claims["id"].(uint)
+
+	// Unmarshal data from request body
+	err = msgpack.Unmarshal(c.Body(), &coordinate)
+	if err != nil {
+		return helper.HandleError(c, 500, err, "Something went wrong while unmarshal user")
+	}
+
+	coordinate.UserID = userID
+
+	userCoordinates, err := app.models.Coordinates.GetUserLocation(uint(userID))
+	if err != nil {
+		return helper.HandleError(c, 500, err, "Something went wrong in getting user location")
+	}
+
+	err = app.models.Coordinates.UpdateUserLocation(userCoordinates.ID, coordinate)
+	if err != nil {
+		return helper.HandleError(c, 500, err, "Something went wrong updating user location")
+	}
+
+	return c.SendString("User location updated sucessfully.")
+}

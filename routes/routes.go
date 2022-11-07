@@ -24,7 +24,7 @@ func InitializeRoutes(app *controller.Application, fibApp *fiber.App, privateKey
 
 		v1.Post("/location", app.AddUserLocation)
 
-		// v1.Put("/location", app.UpdateUserLocation)
+		v1.Put("/location", app.UpdateUserLocation)
 		// v1.Get("/location", app.GetUserLocation)
 	}
 }
