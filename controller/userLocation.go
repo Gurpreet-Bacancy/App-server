@@ -4,6 +4,8 @@ import (
 	"App-server/helper"
 	"database/sql"
 	"errors"
+	"fmt"
+	"strconv"
 
 	"github.com/Gurpreet-Bacancy/bcl/model"
 	"github.com/gofiber/fiber/v2"
@@ -32,10 +34,15 @@ func (app *Application) GetUserLocation(c *fiber.Ctx) error {
 
 	userClaims := c.Locals("user").(*jwt.Token)
 	claims := userClaims.Claims.(jwt.MapClaims)
-	userID := claims["id"].(uint)
+	fmt.Println("claims----->", claims)
+	userID := claims["id"].(string)
+	intval, err := strconv.Atoi(userID)
+	if err != nil {
+		return helper.HandleError(c, 500, err, "Something went wrong while getting user coordinates details")
+	}
 
 	// if exist then update user location
-	coordinates, err := app.models.Coordinates.GetUserLocation(userID)
+	coordinates, err := app.models.Coordinates.GetUserLocation(uint(intval))
 	if err != nil {
 		return helper.HandleError(c, 500, err, "Something went wrong while getting user coordinates details")
 	}

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"strconv"
 	"time"
 
 	"App-server/helper"
@@ -55,6 +56,7 @@ func (app *Application) Login(c *fiber.Ctx) error {
 
 	//	Create the Claims
 	claims := jwt.MapClaims{
+		"id":    strconv.FormatUint(uint64(user.ID), 10),
 		"email": user.Email,
 		"exp":   time.Now().Add(time.Minute * 10).Unix(),
 	}
