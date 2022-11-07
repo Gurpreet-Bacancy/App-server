@@ -14,15 +14,14 @@ import (
 )
 
 func InitializeRoutes(app *controller.Application, fibApp *fiber.App, privateKey *rsa.PrivateKey) {
-
 	// Middleware
 	fibApp.Use(logger.New())
 
 	// Routes
 	fibApp.Get("/healthcheck", app.HealthCheck)
 	fibApp.Get("/swagger/*", swagger.HandlerDefault) // default
-	// Routes
-	fibApp.Post("/signin", app.Login)
+	fibApp.Post("/signup", app.Signup)
+	fibApp.Post("/login", app.Login)
 	{
 		v1 := fibApp.Group("/v1")
 

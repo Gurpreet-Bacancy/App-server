@@ -27,7 +27,7 @@ import (
 // @Router / [post]
 func (app *Application) Login(c *fiber.Ctx) error {
 	// POST request
-	// TODO Password checking
+	// TODO Password checking via hash
 	var (
 		userLogin     types.UserLoginRequest
 		loginResponse types.UserLoginResponse
