@@ -14,6 +14,33 @@ import (
 //TODO:
 // Make logging more traceble.
 
+func (app *Application) GetUserLocation(c *fiber.Ctx) error {
+	var err error
+
+	msgpckHeader := c.Get("content-type")
+	if msgpckHeader != "application/octet-stream" {
+		return helper.HandleError(c, 400, err, "Invalid messagepack request, Please provide messagepack request")
+	}
+
+	userClaims := c.Locals("user").(*jwt.Token)
+	claims := userClaims.Claims.(jwt.MapClaims)
+	userID := claims["id"].(uint)
+
+	// if exist then update user location
+	coordinates, err := app.models.Coordinates.GetUserLocation(userID)
+	if err != nil {
+		return helper.HandleError(c, 500, err, "Something went wrong while getting user coordinates details")
+	}
+
+	// marshal
+	response, err := msgpack.Marshal(coordinates)
+	if err != nil {
+		return helper.HandleError(c, 500, err, "Something went wrong while unmarshal coordinates")
+	}
+
+	return c.Send(response)
+}
+
 func (app *Application) AddUserLocation(c *fiber.Ctx) error {
 	// POST request
 	var (
@@ -44,7 +71,7 @@ func (app *Application) AddUserLocation(c *fiber.Ctx) error {
 	// Unmarshal data from request body
 	err = msgpack.Unmarshal(c.Body(), &coordinate)
 	if err != nil {
-		return helper.HandleError(c, 500, err, "Something went wrong while unmarshal user")
+		return helper.HandleError(c, 500, err, "Something went wrong while unmarshal user coordinates")
 	}
 
 	coordinate.UserID = userID
