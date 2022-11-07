@@ -1,23 +1,67 @@
 package main
 
 import (
-	"App-server/routes"
+	"crypto/rsa"
+	"flag"
+	"log"
+	"os"
 
-	"github.com/gofiber/fiber"
+	"App-server/controller"
+
+	"github.com/Gurpreet-Bacancy/bcl/dbconn"
+	"github.com/Gurpreet-Bacancy/bcl/postgres"
+	fiber "github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
 )
 
-var app *controller.Application
+var (
+	conn       *dbconn.Postgres
+	models     *postgres.Models
+	app        *controller.Application
+	privateKey *rsa.PrivateKey
+)
 
 func init() {
+	var err error
 
+	// Load Env file
+	err = godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	// Connect to DB
+	conn, err = dbconn.NewPostgres(os.Getenv("DB_URL"))
+	if err != nil {
+		panic(err)
+	}
+
+	// load Models
+	models = postgres.NewModels(conn)
 }
 
+// TODO seeding and migration Via GONG
+// TODO Use websockets
 func main() {
 	fibApp := fiber.New()
 
-	// initialize routes
-	routes.InitializeRoutes(app, fibApp, privateKey)
+	runmigration := flag.Bool("runmigration", false, "run migration")
+	runseeders := flag.Bool("runseeders", false, "run seeders")
+	startserver := flag.Bool("startserver", false, "start server")
+	flag.Parse()
 
-	// starting server
-	fibApp.Listen(":3000")
+	if *runmigration {
+		dbconn.Initialmigration(os.Getenv("DB_URL"))
+	}
+
+	if *runseeders {
+		dbconn.Seeder(os.Getenv("DB_URL"))
+	}
+
+	if *startserver {
+		// initialize routes
+
+		// starting server
+		fibApp.Listen(":3000")
+	}
 }
