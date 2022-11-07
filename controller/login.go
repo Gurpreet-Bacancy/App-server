@@ -14,6 +14,15 @@ import (
 )
 
 // TODO Implement Signup API
+
+// Login godoc
+// @Summary check user login
+// @Description user success to login then generate active token
+// @Tags root
+// @Accept */*
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router / [post]
 func (app *Application) Login(c *fiber.Ctx) error {
 	// POST request
 	var (

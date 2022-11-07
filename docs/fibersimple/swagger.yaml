@@ -1,0 +1,66 @@
+basePath: /
+host: localhost:3000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This about user location details
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Fiber Swagger API
+  version: "2.0"
+paths:
+  /:
+    get:
+      consumes:
+      - '*/*'
+      description: it takes user token and fetch user location from db.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: get user location.
+      tags:
+      - root
+    post:
+      consumes:
+      - '*/*'
+      description: it takes user token and fetch user location from db if exits otherwise
+        creates new.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: add user new location if exits location it updates.
+      tags:
+      - root
+    put:
+      consumes:
+      - '*/*'
+      description: it takes user token and fetch user location from db and updates
+        to it.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: updates user new location if exits location it updates.
+      tags:
+      - root
+schemes:
+- http
+swagger: "2.0"

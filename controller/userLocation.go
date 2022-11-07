@@ -14,6 +14,14 @@ import (
 //TODO:
 // Make logging more traceble.
 
+// GetUserLocation godoc
+// @Summary get user location.
+// @Description it takes user token and fetch user location from db.
+// @Tags root
+// @Accept */*
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router / [get]
 func (app *Application) GetUserLocation(c *fiber.Ctx) error {
 	var err error
 
@@ -41,6 +49,14 @@ func (app *Application) GetUserLocation(c *fiber.Ctx) error {
 	return c.Send(response)
 }
 
+// AddUserLocation godoc
+// @Summary add user new location if exits location it updates.
+// @Description it takes user token and fetch user location from db if exits otherwise creates new.
+// @Tags root
+// @Accept */*
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router / [post]
 func (app *Application) AddUserLocation(c *fiber.Ctx) error {
 	// POST request
 	var (
@@ -77,7 +93,7 @@ func (app *Application) AddUserLocation(c *fiber.Ctx) error {
 	coordinate.UserID = userID
 
 	// Upsert
-	// check if user location is available if available then update, if not then add
+	// check if user location is available if available then update, if not then add.
 	userCoordinates, err := app.models.Coordinates.GetUserLocation(uint(userID))
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
@@ -101,6 +117,14 @@ func (app *Application) AddUserLocation(c *fiber.Ctx) error {
 	return c.SendString("User location added sucessfully.")
 }
 
+// UpdateUserLocation godoc
+// @Summary updates user new location if exits location it updates.
+// @Description it takes user token and fetch user location from db and updates to it.
+// @Tags root
+// @Accept */*
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router / [put]
 func (app *Application) UpdateUserLocation(c *fiber.Ctx) error {
 	// PUT request
 	var (
