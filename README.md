@@ -9,7 +9,7 @@ To run server pass the -startserver flag
 - go run main.go -runseeders -runmigration -startserver
 
 
-How TO generate swagger files and documents.
+How To generate swagger files and documents.
 
 swag init -g main.go --output docs/fibersimple/
 
