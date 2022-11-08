@@ -1,11 +1,12 @@
 package controller
 
 import (
-	"App-server/helper"
 	"database/sql"
 	"errors"
 	"fmt"
 	"strconv"
+
+	"App-server/helper"
 
 	"github.com/Gurpreet-Bacancy/bcl/model"
 	"github.com/gofiber/fiber/v2"
@@ -13,7 +14,7 @@ import (
 	"github.com/shamaton/msgpack"
 )
 
-//TODO:
+// TODO:
 // Make logging more traceble.
 
 // GetUserLocation godoc
