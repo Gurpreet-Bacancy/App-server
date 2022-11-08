@@ -19,7 +19,7 @@ paths:
       - '*/*'
       description: it takes user token and fetch user location from db.
       produces:
-      - application/json
+      - application/octet-stream
       responses:
         "200":
           description: OK
@@ -35,7 +35,7 @@ paths:
       description: it takes user token and fetch user location from db if exits otherwise
         creates new.
       produces:
-      - application/json
+      - application/octet-stream
       responses:
         "200":
           description: OK
@@ -51,7 +51,7 @@ paths:
       description: it takes user token and fetch user location from db and updates
         to it.
       produces:
-      - application/json
+      - application/octet-stream
       responses:
         "200":
           description: OK

@@ -21,7 +21,7 @@ import (
 // @Description it takes user token and fetch user location from db.
 // @Tags root
 // @Accept */*
-// @Produce json
+// @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
 // @Router / [get]
 func (app *Application) GetUserLocation(c *fiber.Ctx) error {
@@ -61,7 +61,7 @@ func (app *Application) GetUserLocation(c *fiber.Ctx) error {
 // @Description it takes user token and fetch user location from db if exits otherwise creates new.
 // @Tags root
 // @Accept */*
-// @Produce json
+// @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
 // @Router / [post]
 func (app *Application) AddUserLocation(c *fiber.Ctx) error {
@@ -129,7 +129,7 @@ func (app *Application) AddUserLocation(c *fiber.Ctx) error {
 // @Description it takes user token and fetch user location from db and updates to it.
 // @Tags root
 // @Accept */*
-// @Produce json
+// @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
 // @Router / [put]
 func (app *Application) UpdateUserLocation(c *fiber.Ctx) error {

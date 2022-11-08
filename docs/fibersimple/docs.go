@@ -32,7 +32,7 @@ const docTemplate = `{
                     "*/*"
                 ],
                 "produces": [
-                    "application/json"
+                    "application/octet-stream"
                 ],
                 "tags": [
                     "root"
@@ -54,7 +54,7 @@ const docTemplate = `{
                     "*/*"
                 ],
                 "produces": [
-                    "application/json"
+                    "application/octet-stream"
                 ],
                 "tags": [
                     "root"
@@ -76,7 +76,7 @@ const docTemplate = `{
                     "*/*"
                 ],
                 "produces": [
-                    "application/json"
+                    "application/octet-stream"
                 ],
                 "tags": [
                     "root"

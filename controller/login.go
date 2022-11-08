@@ -23,7 +23,7 @@ import (
 // @Description user success to login then generate active token
 // @Tags root
 // @Accept */*
-// @Produce json
+// @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
 // @Router / [post]
 func (app *Application) Login(c *fiber.Ctx) error {
