@@ -36,5 +36,8 @@ func InitializeRoutes(app *controller.Application, fibApp *fiber.App, privateKey
 		v1.Put("/location", app.UpdateUserLocation)
 		// Routes
 		v1.Get("/location", app.GetUserLocation)
+
+		// Routes
+		v1.Get("/nearest", app.GetNearestUser)
 	}
 }

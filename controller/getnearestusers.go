@@ -44,7 +44,7 @@ func (app *Application) GetNearestUser(c *fiber.Ctx) error {
 	}
 
 	// get 10 nearest users
-	Usercoordinates, err := app.models.Coordinates.GetNearestUsers(coordinates, 10)
+	Usercoordinates, err := app.models.Coordinates.GetNearestUsers(coordinates)
 	if err != nil {
 		return helper.HandleError(c, 500, err, "Something went wrong while getting user coordinates details")
 	}
