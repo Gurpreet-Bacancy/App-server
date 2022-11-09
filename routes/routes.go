@@ -1,9 +1,8 @@
 package routes
 
 import (
-	"crypto/rsa"
-
 	"App-server/controller"
+	"crypto/rsa"
 
 	_ "App-server/docs/fibersimple"
 
@@ -46,5 +45,5 @@ func InitializeRoutes(app *controller.Application, fibApp *fiber.App, privateKey
 	// Routes
 	v1.Get("/location", app.GetUserLocation)
 	// Routes
-	v1.Get("/nearest/user", app.GetNearestUser)
+	v1.Post("/nearest/user", app.GetNearestUser)
 }

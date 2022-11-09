@@ -142,7 +142,7 @@ const docTemplate = `{
             }
         },
         "/v1/nearest/user": {
-            "get": {
+            "post": {
                 "description": "it give nearest 10 user.",
                 "consumes": [
                     "*/*"

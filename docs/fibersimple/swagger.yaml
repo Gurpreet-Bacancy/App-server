@@ -94,7 +94,7 @@ paths:
       tags:
       - root
   /v1/nearest/user:
-    get:
+    post:
       consumes:
       - '*/*'
       description: it give nearest 10 user.
