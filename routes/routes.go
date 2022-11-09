@@ -25,6 +25,8 @@ func InitializeRoutes(app *controller.Application, fibApp *fiber.App, privateKey
 		DeepLinking: false,
 	}))
 
+	fibApp.Use(middleware.ValidateMiddleware())
+
 	// Routes
 	fibApp.Post("/signup", app.Signup)
 
@@ -37,7 +39,6 @@ func InitializeRoutes(app *controller.Application, fibApp *fiber.App, privateKey
 	v1.Use(jwtware.New(jwtware.Config{
 		KeyFunc: middleware.CustomKeyFunc(privateKey),
 	}))
-
 	// Routes
 	v1.Post("/location", app.AddUserLocation)
 	// Routes
@@ -46,5 +47,4 @@ func InitializeRoutes(app *controller.Application, fibApp *fiber.App, privateKey
 	v1.Get("/location", app.GetUserLocation)
 	// Routes
 	v1.Get("/nearest/user", app.GetNearestUser)
-
 }

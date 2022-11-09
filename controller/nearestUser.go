@@ -22,11 +22,6 @@ import (
 func (app *Application) GetNearestUser(c *fiber.Ctx) error {
 	var err error
 
-	msgpckHeader := c.Get("content-type")
-	if msgpckHeader != "application/octet-stream" {
-		return helper.HandleError(c, 400, err, "Invalid messagepack request, Please provide messagepack request")
-	}
-
 	userClaims := c.Locals("user").(*jwt.Token)
 	claims := userClaims.Claims.(jwt.MapClaims)
 	fmt.Println("claims----->", claims)

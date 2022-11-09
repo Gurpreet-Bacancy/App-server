@@ -34,10 +34,6 @@ func (app *Application) Login(c *fiber.Ctx) error {
 		loginResponse types.UserLoginResponse
 		err           error
 	)
-	msgpckHeader := c.Get("content-type")
-	if msgpckHeader != "application/octet-stream" {
-		return helper.HandleError(c, 400, nil, "Invalid messagepack request, Please provide messagepack request")
-	}
 
 	// Unmarshal data from request body
 	err = msgpack.Unmarshal(c.Body(), &userLogin)
