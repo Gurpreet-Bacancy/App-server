@@ -3,7 +3,6 @@ package controller
 import (
 	"database/sql"
 	"errors"
-	"fmt"
 	"strconv"
 
 	"App-server/helper"
@@ -30,7 +29,7 @@ func (app *Application) GetUserLocation(c *fiber.Ctx) error {
 
 	userClaims := c.Locals("user").(*jwt.Token)
 	claims := userClaims.Claims.(jwt.MapClaims)
-	fmt.Println("claims----->", claims)
+
 	userID := claims["id"].(string)
 	intval, err := strconv.Atoi(userID)
 	if err != nil {
