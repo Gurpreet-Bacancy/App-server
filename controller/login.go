@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"App-server/helper"
+	"App-server/types"
 
-	"github.com/Gurpreet-Bacancy/bcl/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/jinzhu/gorm"
 
@@ -16,15 +16,14 @@ import (
 	"github.com/shamaton/msgpack"
 )
 
-// TODO Implement Signup API
-
 // Login godoc
 // @Summary check user login
 // @Description user success to login then generate active token
 // @Tags root
-// @Accept */*
+// @Accept octet-stream
 // @Produce octet-stream
-// @Success 200 {object} map[string]interface{}
+// @Param login body types.UserLoginRequest true "user login"
+// @Success 200 {object} types.UserLoginResponse
 // @Router /login [post]
 func (app *Application) Login(c *fiber.Ctx) error {
 	// POST request

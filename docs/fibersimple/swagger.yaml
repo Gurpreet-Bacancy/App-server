@@ -1,4 +1,35 @@
 basePath: /
+definitions:
+  types.Coordinates:
+    properties:
+      latitude:
+        type: number
+      longitude:
+        type: number
+    type: object
+  types.UserCoordinateItem:
+    properties:
+      distance:
+        type: number
+      latitude:
+        type: number
+      longitude:
+        type: number
+      userID:
+        type: integer
+    type: object
+  types.UserLoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  types.UserLoginResponse:
+    properties:
+      token:
+        type: string
+    type: object
 host: localhost:3000
 info:
   contact:
@@ -16,7 +47,7 @@ paths:
   /healthcheck:
     get:
       consumes:
-      - '*/*'
+      - application/octet-stream
       description: get the status of server.
       produces:
       - application/octet-stream
@@ -32,23 +63,29 @@ paths:
   /login:
     post:
       consumes:
-      - '*/*'
+      - application/octet-stream
       description: user success to login then generate active token
+      parameters:
+      - description: user login
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/types.UserLoginRequest'
       produces:
       - application/octet-stream
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/types.UserLoginResponse'
       summary: check user login
       tags:
       - root
   /v1/location:
     get:
       consumes:
-      - '*/*'
+      - application/octet-stream
       description: it takes user token and fetch user location from db.
       produces:
       - application/octet-stream
@@ -63,7 +100,7 @@ paths:
       - root
     post:
       consumes:
-      - '*/*'
+      - application/octet-stream
       description: it takes user token and fetch user location from db if exits otherwise
         creates new.
       produces:
@@ -79,7 +116,7 @@ paths:
       - root
     put:
       consumes:
-      - '*/*'
+      - application/octet-stream
       description: it takes user token and fetch user location from db and updates
         to it.
       produces:
@@ -96,16 +133,24 @@ paths:
   /v1/nearest/user:
     post:
       consumes:
-      - '*/*'
+      - application/octet-stream
       description: it give nearest 10 user.
+      parameters:
+      - description: user cooridnates
+        in: body
+        name: coordinates
+        required: true
+        schema:
+          $ref: '#/definitions/types.Coordinates'
       produces:
       - application/octet-stream
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            items:
+              $ref: '#/definitions/types.UserCoordinateItem'
+            type: array
       summary: get Get Nearest User.
       tags:
       - root

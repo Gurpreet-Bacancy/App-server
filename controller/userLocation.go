@@ -13,14 +13,11 @@ import (
 	"github.com/shamaton/msgpack"
 )
 
-// TODO:
-// Make logging more traceble.
-
 // GetUserLocation godoc
 // @Summary get user location.
 // @Description it takes user token and fetch user location from db.
 // @Tags root
-// @Accept */*
+// @Accept octet-stream
 // @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
 // @Router /v1/location [get]
@@ -55,7 +52,7 @@ func (app *Application) GetUserLocation(c *fiber.Ctx) error {
 // @Summary add user new location if exits location it updates.
 // @Description it takes user token and fetch user location from db if exits otherwise creates new.
 // @Tags root
-// @Accept */*
+// @Accept octet-stream
 // @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
 // @Router /v1/location [post]
@@ -117,7 +114,7 @@ func (app *Application) AddUserLocation(c *fiber.Ctx) error {
 // @Summary updates user new location if exits location it updates.
 // @Description it takes user token and fetch user location from db and updates to it.
 // @Tags root
-// @Accept */*
+// @Accept octet-stream
 // @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
 // @Router /v1/location [put]

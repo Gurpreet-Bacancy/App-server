@@ -29,7 +29,7 @@ const docTemplate = `{
             "get": {
                 "description": "get the status of server.",
                 "consumes": [
-                    "*/*"
+                    "application/octet-stream"
                 ],
                 "produces": [
                     "application/octet-stream"
@@ -53,7 +53,7 @@ const docTemplate = `{
             "post": {
                 "description": "user success to login then generate active token",
                 "consumes": [
-                    "*/*"
+                    "application/octet-stream"
                 ],
                 "produces": [
                     "application/octet-stream"
@@ -62,12 +62,22 @@ const docTemplate = `{
                     "root"
                 ],
                 "summary": "check user login",
+                "parameters": [
+                    {
+                        "description": "user login",
+                        "name": "login",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.UserLoginRequest"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/types.UserLoginResponse"
                         }
                     }
                 }
@@ -77,7 +87,7 @@ const docTemplate = `{
             "get": {
                 "description": "it takes user token and fetch user location from db.",
                 "consumes": [
-                    "*/*"
+                    "application/octet-stream"
                 ],
                 "produces": [
                     "application/octet-stream"
@@ -99,7 +109,7 @@ const docTemplate = `{
             "put": {
                 "description": "it takes user token and fetch user location from db and updates to it.",
                 "consumes": [
-                    "*/*"
+                    "application/octet-stream"
                 ],
                 "produces": [
                     "application/octet-stream"
@@ -121,7 +131,7 @@ const docTemplate = `{
             "post": {
                 "description": "it takes user token and fetch user location from db if exits otherwise creates new.",
                 "consumes": [
-                    "*/*"
+                    "application/octet-stream"
                 ],
                 "produces": [
                     "application/octet-stream"
@@ -145,7 +155,7 @@ const docTemplate = `{
             "post": {
                 "description": "it give nearest 10 user.",
                 "consumes": [
-                    "*/*"
+                    "application/octet-stream"
                 ],
                 "produces": [
                     "application/octet-stream"
@@ -154,14 +164,76 @@ const docTemplate = `{
                     "root"
                 ],
                 "summary": "get Get Nearest User.",
+                "parameters": [
+                    {
+                        "description": "user cooridnates",
+                        "name": "coordinates",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.Coordinates"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/types.UserCoordinateItem"
+                            }
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "types.Coordinates": {
+            "type": "object",
+            "properties": {
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                }
+            }
+        },
+        "types.UserCoordinateItem": {
+            "type": "object",
+            "properties": {
+                "distance": {
+                    "type": "number"
+                },
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "userID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "types.UserLoginRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.UserLoginResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
                 }
             }
         }

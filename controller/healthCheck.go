@@ -6,7 +6,7 @@ import "github.com/gofiber/fiber/v2"
 // @Summary Show the status of server.
 // @Description get the status of server.
 // @Tags root
-// @Accept */*
+// @Accept octet-stream
 // @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
 // @Router /healthcheck [get]
