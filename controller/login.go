@@ -25,7 +25,7 @@ import (
 // @Accept */*
 // @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
-// @Router / [post]
+// @Router /login [post]
 func (app *Application) Login(c *fiber.Ctx) error {
 	// POST request
 	// TODO Password checking via hash

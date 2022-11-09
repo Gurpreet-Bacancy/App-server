@@ -13,7 +13,39 @@ info:
   title: Fiber Swagger API
   version: "2.0"
 paths:
-  /:
+  /healthcheck:
+    get:
+      consumes:
+      - '*/*'
+      description: get the status of server.
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Show the status of server.
+      tags:
+      - root
+  /login:
+    post:
+      consumes:
+      - '*/*'
+      description: user success to login then generate active token
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: check user login
+      tags:
+      - root
+  /v1/location:
     get:
       consumes:
       - '*/*'
@@ -59,6 +91,22 @@ paths:
             additionalProperties: true
             type: object
       summary: updates user new location if exits location it updates.
+      tags:
+      - root
+  /v1/nearest/user:
+    get:
+      consumes:
+      - '*/*'
+      description: it give nearest 10 user.
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: get Get Nearest User.
       tags:
       - root
 schemes:

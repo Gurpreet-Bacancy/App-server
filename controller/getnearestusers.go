@@ -11,14 +11,14 @@ import (
 	"github.com/shamaton/msgpack"
 )
 
-// GetUserLocation godoc
-// @Summary get user location.
-// @Description it takes user token and fetch user location from db.
+// GetNearestUser godoc
+// @Summary get Get Nearest User.
+// @Description it give nearest 10 user.
 // @Tags root
 // @Accept */*
-// @Produce msgp
+// @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
-// @Router / [get]
+// @Router /v1/nearest/user [get]
 func (app *Application) GetNearestUser(c *fiber.Ctx) error {
 	var err error
 

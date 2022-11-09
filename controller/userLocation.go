@@ -24,7 +24,7 @@ import (
 // @Accept */*
 // @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
-// @Router / [get]
+// @Router /v1/location [get]
 func (app *Application) GetUserLocation(c *fiber.Ctx) error {
 	var err error
 
@@ -64,7 +64,7 @@ func (app *Application) GetUserLocation(c *fiber.Ctx) error {
 // @Accept */*
 // @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
-// @Router / [post]
+// @Router /v1/location [post]
 func (app *Application) AddUserLocation(c *fiber.Ctx) error {
 	// POST request
 	var (
@@ -132,7 +132,7 @@ func (app *Application) AddUserLocation(c *fiber.Ctx) error {
 // @Accept */*
 // @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
-// @Router / [put]
+// @Router /v1/location [put]
 func (app *Application) UpdateUserLocation(c *fiber.Ctx) error {
 	// PUT request
 	var (

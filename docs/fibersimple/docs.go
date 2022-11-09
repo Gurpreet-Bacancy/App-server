@@ -25,7 +25,55 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/": {
+        "/healthcheck": {
+            "get": {
+                "description": "get the status of server.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "root"
+                ],
+                "summary": "Show the status of server.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "description": "user success to login then generate active token",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "root"
+                ],
+                "summary": "check user login",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/location": {
             "get": {
                 "description": "it takes user token and fetch user location from db.",
                 "consumes": [
@@ -82,6 +130,30 @@ const docTemplate = `{
                     "root"
                 ],
                 "summary": "add user new location if exits location it updates.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/nearest/user": {
+            "get": {
+                "description": "it give nearest 10 user.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "root"
+                ],
+                "summary": "get Get Nearest User.",
                 "responses": {
                     "200": {
                         "description": "OK",

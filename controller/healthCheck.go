@@ -9,7 +9,7 @@ import "github.com/gofiber/fiber/v2"
 // @Accept */*
 // @Produce octet-stream
 // @Success 200 {object} map[string]interface{}
-// @Router / [get]
+// @Router /healthcheck [get]
 func (app *Application) HealthCheck(c *fiber.Ctx) error {
 	return c.SendString("Hey There! Everything's working fine, Chill.")
 }
